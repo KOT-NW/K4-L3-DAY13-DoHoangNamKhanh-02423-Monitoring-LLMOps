@@ -1,0 +1,13 @@
+PII redaction in real application logs (data/logs.jsonl):
+
+[REDACTED_EMAIL]
+{"service": "api", "payload": {"message_preview": "My email is [REDACTED_EMAIL]"}, "event": "request_received", "correlation_id": "req-4041b257", "session_id": "pii-s1", "user_id_hash": "2d0068d54434", "model": "claude-sonnet-4-5", "env": "dev", "feature": "qa", "level": "info", "ts": "2026-09-29T10:33:37.835328Z"}
+
+[REDACTED_PHONE_VN]
+{"service": "api", "payload": {"message_preview": "Call me at [REDACTED_PHONE_VN]"}, "event": "request_received", "correlation_id": "req-e5c9e6e6", "session_id": "pii-s2", "user_id_hash": "8996ad749eb4", "model": "claude-sonnet-4-5", "env": "dev", "feature": "qa", "level": "info", "ts": "2026-09-29T10:33:39.421867Z"}
+
+[REDACTED_CCCD]
+{"service": "api", "payload": {"message_preview": "My CCCD is [REDACTED_CCCD]"}, "event": "request_received", "correlation_id": "req-982aa57c", "session_id": "pii-s3", "user_id_hash": "3c1157723003", "model": "claude-sonnet-4-5", "env": "dev", "feature": "qa", "level": "info", "ts": "2026-09-29T10:33:39.614012Z"}
+
+[REDACTED_CREDIT_CARD]
+{"service": "api", "payload": {"message_preview": "Pay with card [REDACTED_CREDIT_CARD]"}, "event": "request_received", "correlation_id": "req-e0d2533d", "session_id": "pii-s4", "user_id_hash": "a62fd6b95026", "model": "claude-sonnet-4-5", "env": "dev", "feature": "qa", "level": "info", "ts": "2026-09-29T10:33:39.803960Z"}

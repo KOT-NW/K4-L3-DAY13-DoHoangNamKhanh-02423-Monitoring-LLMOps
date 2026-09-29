@@ -36,6 +36,21 @@ def get_langfuse_client():
     return get_client()
 
 
+@contextmanager
+def child_observation(client: Any, *, name: str, as_type: str = "span", **kwargs: Any):
+    """Create a nested observation when the client supports it, else a no-op.
+
+    Keeps the agent runnable with the dummy/recording clients used in tests and
+    when tracing is disabled, while producing a real span tree when enabled.
+    """
+    starter = getattr(client, "start_as_current_observation", None)
+    if starter is None:
+        yield None
+        return
+    with starter(name=name, as_type=as_type, **kwargs) as observation:
+        yield observation
+
+
 def tracing_enabled() -> bool:
     return LANGFUSE_SDK_AVAILABLE and bool(
         os.getenv("LANGFUSE_PUBLIC_KEY") and os.getenv("LANGFUSE_SECRET_KEY")

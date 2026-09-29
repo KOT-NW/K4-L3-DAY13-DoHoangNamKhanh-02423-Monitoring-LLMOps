@@ -1,13 +1,27 @@
 service: day13-l3a-monitoring-llmops-lab
 primary_slo:
   name: fast_successful_requests
+  description: >-
+    Tỉ lệ request /chat thành công (không lỗi) và trả về trong ngưỡng latency
+    chấp nhận được. Đo trên structured log data/logs.jsonl.
   window: 28d
   sli:
     good_event: 'event == "response_sent" and latency_ms <= 3000'
     total_event: 'event == "request_received"'
   target_percent: 99.5
   error_budget_percent: 0.5
-  note: Học viên phải giải thích hoặc điều chỉnh ngưỡng bằng baseline của mình.
+  rationale: >-
+    Baseline thực đo cho p95 latency ~630ms và phần lớn request ~150-180ms, thấp
+    hơn nhiều so với ngưỡng 3000ms, nên 99.5% là mục tiêu hợp lý cho một API LLM
+    nội bộ: đủ chặt để phát hiện suy thoái nhưng không tạo alert nhiễu.
+  error_budget:
+    basis: '0.5% của tổng request good+total trong 28 ngày'
+    example_window_requests: 2800
+    allowed_bad_requests: 14
+    note: >-
+      Trong 28 ngày, nếu có ~2800 request thì error budget cho phép tối đa ~14
+      request xấu (lỗi hoặc latency > 3000ms) trước khi vi phạm SLO và phải
+      dừng deploy/tối ưu.
 guardrails:
   error_rate_pct_max: 2
   daily_cost_usd_max: 2.5

@@ -1,25 +1,30 @@
 alerts:
-  - name: TODO_alert_1
-    severity: TODO
-    condition: TODO
-    duration: TODO
+  - name: high_p95_latency
+    description: P95 latency /chat vượt ngưỡng SLO 3000ms trong thời gian dài.
+    severity: critical
+    condition: 'p95(latency_ms) on event response_sent > 3000'
+    duration: 10m
     type: symptom-based
     channel: slack
-    owner: TODO
+    owner: oncall-llmops
     runbook: docs/alerts.md#alert-1
-  - name: TODO_alert_2
-    severity: TODO
-    condition: TODO
-    duration: TODO
+
+  - name: elevated_error_rate
+    description: Tỉ lệ request lỗi tăng hoặc retrieval success rate tụt dưới 90%.
+    severity: critical
+    condition: 'error_rate_pct > 2 or retrieval_success_rate_pct < 90'
+    duration: 5m
     type: symptom-based
     channel: slack
-    owner: TODO
+    owner: oncall-llmops
     runbook: docs/alerts.md#alert-2
-  - name: TODO_alert_3
-    severity: TODO
-    condition: TODO
-    duration: TODO
+
+  - name: cost_budget_burn
+    description: Chi phí token tăng vọt, đốt error budget/ngân sách theo giờ.
+    severity: warning
+    condition: 'sum(cost_usd) on event response_sent > 2.5 USD per 1h'
+    duration: 15m
     type: symptom-based
     channel: slack
-    owner: TODO
+    owner: oncall-llmops
     runbook: docs/alerts.md#alert-3

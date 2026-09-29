@@ -1,0 +1,7 @@
+Slow response_sent records (latency_ms > 2000): 5
+
+ts=2026-09-29T09:56:55.465452Z cid=req-8e461e3f feature=monitoring latency_ms=2654 ttft_ms=50 tool_success=True
+ts=2026-09-29T09:56:58.125917Z cid=req-fd99c935 feature=monitoring latency_ms=2652 ttft_ms=50 tool_success=True
+ts=2026-09-29T09:57:00.783130Z cid=req-307415c0 feature=monitoring latency_ms=2653 ttft_ms=50 tool_success=True
+ts=2026-09-29T09:57:03.448490Z cid=req-566df06f feature=monitoring latency_ms=2662 ttft_ms=50 tool_success=True
+ts=2026-09-29T09:57:06.132171Z cid=req-9c331e44 feature=monitoring latency_ms=2661 ttft_ms=50 tool_success=True

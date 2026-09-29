@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from structlog.contextvars import bind_contextvars
 
 from .agent import LabAgent
+from .dashboard_metrics import build_dashboard
 from .incidents import disable, enable, status
 from .logging_config import configure_logging, get_logger
 from .metrics import record_error, snapshot
@@ -46,11 +48,25 @@ async def metrics() -> dict:
     return snapshot()
 
 
+@app.get("/dashboard/metrics")
+async def dashboard_metrics(window_minutes: int = 60) -> dict:
+    return build_dashboard(
+        log_path=Path(os.getenv("LOG_PATH", "data/logs.jsonl")),
+        window_minutes=window_minutes,
+    )
+
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: Request, body: ChatRequest) -> ChatResponse:
-    # TODO: Enrich logs with request context (user_id_hash, session_id, feature, model, env)
-    # bind_contextvars(...)
-    
+    # Enrich logs with request context (user_id_hash, session_id, feature, model, env)
+    bind_contextvars(
+        user_id_hash=hash_user_id(body.user_id),
+        session_id=body.session_id,
+        feature=body.feature,
+        model=agent.model,
+        env=os.getenv("APP_ENV", "dev"),
+    )
+
     log.info(
         "request_received",
         service="api",
