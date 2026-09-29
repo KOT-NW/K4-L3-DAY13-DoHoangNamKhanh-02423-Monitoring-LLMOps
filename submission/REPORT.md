@@ -8,7 +8,7 @@
 - **MSSV:** 02423
 - **Lớp:** K4-L3A
 - **Repository URL:** https://github.com/KOT-NW/K4-L3-DAY13-DoHoangNamKhanh-02423-Monitoring-LLMOps
-- **Commit SHA cuối:** `<cập nhật sau khi commit>` (commit hiện tại trước khi nộp: `04e6c14`)
+- **Commit SHA cuối:** `ad604e7a860ede875eb3e2b8b7e97e98af036cf9`
 - **Challenge ID:** `day13-k4-l3a-monitoring-llmops-v1`
 - **Tên project Langfuse cá nhân:** `yuy` (organization `gigig`) — project cá nhân, hiển thị trong toàn bộ evidence trace/prompt
 
